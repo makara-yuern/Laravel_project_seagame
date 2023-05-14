@@ -11,12 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedule_events', function (Blueprint $table) {
+        Schema::create('schedule__events', function (Blueprint $table) {
             $table->id();
+            $table->string("location");
             $table->unsignedBigInteger('event_id');
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->foreign('event_id')
+            ->references('id')
+            ->on('events')
+            ->onDelete('cascade');
             $table->unsignedBigInteger('schedule_id');
-            $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade');
+            $table->foreign('schedule_id')
+            ->references('id')
+            ->on('schedules')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

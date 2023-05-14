@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
-            $table->string("nameMatchcountry");
-            $table->unsignedBigInteger('booking_id');
-            $table->foreign('booking_id')->references('id')->on('booking_tickets')->onDelete('cascade');
-            $table->unsignedBigInteger('schedule_id');
-            $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade');
+            $table->string("teamName");
+            $table->integer("members");
+            $table->unsignedBigInteger('created_by_id');
+            $table->foreign('created_by_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

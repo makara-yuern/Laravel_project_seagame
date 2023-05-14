@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EventResource;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -11,7 +13,11 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::all();
+        $event = EventResource::collection($events);
+        $name = request('name');
+        $events = Event::where('name', 'like', '%'.$name.'%')->get();
+        return response()->json(['success' =>true, 'data' => $event],200);
     }
 
     /**
@@ -19,7 +25,13 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $event = Event::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'created_by_id' => $request->input('created_by_id'),
+            'team_id' => $request->input('team_id')
+        ]);
+        return response()->json(['success' =>true,'message' =>"create successfully", 'data' => $event],200);
     }
 
     /**
@@ -27,7 +39,8 @@ class EventController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $event = Event::find($id);
+        return response()->json(['success' =>true, 'data' => $event],200);
     }
 
     /**
@@ -35,7 +48,12 @@ class EventController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $event = Event::find($id);
+        $event->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description')
+        ]);
+        return response()->json(['success' =>true,'message' =>"update successfully", 'data' => $event],200);
     }
 
     /**
@@ -43,6 +61,8 @@ class EventController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $event = Event::find($id);
+        $event->delete();
+        return response()->json(['success' =>true,'message' =>"delete successfully", 'data' => $event],200);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return response()->json(['success' =>true, 'data' => $users],200);
+        $user = UserResource::collection($users);
+        return response()->json(['success' =>true, 'data' => $user],200);
     }
 
     /**
@@ -28,7 +30,8 @@ class UserController extends Controller
             'email' => $request->input('email'),
             'gender' => $request->input('gender'),
         ]);
-        return response()->json(['success' =>true, 'data' => $user],200);
+
+        return response()->json(['success' =>true, 'all users' => $user],200);
     }
 
     /**
