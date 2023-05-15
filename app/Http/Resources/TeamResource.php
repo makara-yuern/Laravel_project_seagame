@@ -14,11 +14,13 @@ class TeamResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return[
+        return [
             'id'=>$this->id,
             'teamName'=>$this->teamName,
             'members'=>$this->members,
-            'created_by' =>$this->user ?? null,
+            'user'=>$this->user,
+            'events'=>$this->events,
+            
         ];
     }
 }

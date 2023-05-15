@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TeamRequest;
+use App\Http\Resources\ShowTeamResource;
 use App\Http\Resources\TeamResource;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -21,13 +23,9 @@ class TeamController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TeamRequest $request)
     {
-        $team = Team::create([
-            'teamName' => $request->input('teamName'),
-            'members'=>$request->input('members'),
-            'created_by_id'=>$request->input('created_by_id')
-        ]);
+        $team = Team::store($request);
         return response()->json(['success' =>true,'message' =>"create successfully", 'data' => $team],200);
     }
 
@@ -37,7 +35,8 @@ class TeamController extends Controller
     public function show(string $id)
     {
         $team = Team::find($id);
-        return response()->json(['success' =>true, 'data' => $team],200);
+        $team = new ShowTeamResource($team);
+        return response()->json(['success' => true, 'data' => $team], 200);
     }
 
     /**
@@ -45,11 +44,7 @@ class TeamController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $team = Team::find($id);
-        $team->update([
-            'teamName' => $request->input('teamName'),
-            'member'=>$request->input('member')
-        ]);
+        $team = Team::store($request, $id);
         return response()->json(['success' =>true,'message' =>"update successfully", 'data' => $team],200);
     }
 

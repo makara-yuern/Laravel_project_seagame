@@ -15,16 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->text("description");
-            $table->unsignedBigInteger('created_by_id');
-            $table->foreign('created_by_id')
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
             ->references('id')
             ->on('users')
-            ->onDelete('cascade');
-            
-            $table->unsignedBigInteger('team_id');
-            $table->foreign('team_id')
-            ->references('id')
-            ->on('teams')
             ->onDelete('cascade');
             $table->timestamps();
         });

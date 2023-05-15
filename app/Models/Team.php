@@ -12,16 +12,26 @@ class Team extends Model
     protected $fillable = [
         'teamName',
         'members',
-        'created_by_id',
+        'user_id',
     ];
+
+    
+    public static function store($reques, $id = null)
+    {
+        $team = $reques->only(['teamName', 'members','user_id']);
+
+        $team = self::updateOrCreate(['id' => $id], $team);
+
+        return $team;
+    }
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_teams');
+    }
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function event()
-    {
-        return $this->belongsToMany(Event::class, 'event__teams');
-    }
 }

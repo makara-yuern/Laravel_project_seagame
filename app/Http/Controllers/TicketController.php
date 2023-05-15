@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TicketRequest;
 use App\Http\Resources\TicketResource;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
@@ -21,14 +22,9 @@ class TicketController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TicketRequest $request)
     {
-        $ticket = Ticket::create([
-            'seat' => $request->input('seat'),
-            'price' => $request->input('price'),
-            'user_id' => $request->input('user_id'),
-            'schedule_id' => $request->input('schedule_id'),
-        ]);
+        $ticket = Ticket::store($request);
         return response()->json(['success' =>true,'message' =>"create successfully", 'data' => $ticket],200);
     }
 
@@ -46,11 +42,7 @@ class TicketController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $ticket = Ticket::find($id);
-        $ticket->update([
-            'seat' => $request->input('seat'),
-            'price' => $request->input('price'),
-        ]);
+        $ticket = Ticket::store($request, $id);
         return response()->json(['success' =>true,'message' =>"update successfully", 'data' => $ticket],200);
     }
 

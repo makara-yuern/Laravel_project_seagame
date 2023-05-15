@@ -17,6 +17,15 @@ class Ticket extends Model
         'schedule_id',
     ];
 
+    public static function store($reques, $id = null)
+    {
+        $ticket = $reques->only(['seat', 'price','user_id', 'schedule_id']);
+
+        $ticket = self::updateOrCreate(['id' => $id], $ticket);
+
+        return $ticket;
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

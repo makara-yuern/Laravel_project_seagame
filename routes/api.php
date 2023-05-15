@@ -57,12 +57,12 @@ Route::get('/event/{id}', [EventController::class, "show"]);
 Route::put('/event/{id}', [EventController::class, "update"]);
 Route::delete('/event/{id}', [EventController::class, "destroy"]);
 
-// ----------------------------Route Countrys------------------------------------
-Route::get('/scheduleEvents', [ScheduleEventController::class, "index"]);
-Route::post('/scheduleEvent', [ScheduleEventController::class, "store"]);
-Route::get('/scheduleEvent/{id}', [ScheduleEventController::class, "show"]);
-Route::put('/scheduleEvent/{id}', [ScheduleEventController::class, "update"]);
-Route::delete('/scheduleEvent/{id}', [ScheduleEventController::class, "destroy"]);
+// // ----------------------------Route Countrys------------------------------------
+// Route::get('/scheduleEvents', [ScheduleEventController::class, "index"]);
+// Route::post('/scheduleEvent', [ScheduleEventController::class, "store"]);
+// Route::get('/scheduleEvent/{id}', [ScheduleEventController::class, "show"]);
+// Route::put('/scheduleEvent/{id}', [ScheduleEventController::class, "update"]);
+// Route::delete('/scheduleEvent/{id}', [ScheduleEventController::class, "destroy"]);
 
 // ----------------------------Route BoookingTickets------------------------------------
 Route::get('/tickets', [TicketController::class, "index"]);
@@ -73,4 +73,4 @@ Route::delete('/ticket/{id}', [TicketController::class, "destroy"]);
 
 // ----------------------------Route EventTeam------------------------------------
 
-Route::post('/eventTeam', [EventTeamController::class, "getMatches"]);
+Route::post('/scheduleEvent',[EventController::class,'scheduleEvent']);

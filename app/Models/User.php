@@ -27,6 +27,15 @@ class User extends Authenticatable
         'gender',
     ];
 
+    public static function store($reques, $id = null)
+    {
+        $user = $reques->only(['firstName', 'lastName','age', 'email', 'gender']);
+
+        $user = self::updateOrCreate(['id' => $id], $user);
+
+        return $user;
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -46,9 +55,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function team(): HasOne
+    public function teams(): HasMany
     {
-        return $this->hasOne(Team::class);
+        return $this->hasMany(Team::class);
     }
     
     public function ticket(): HasOne
@@ -56,7 +65,7 @@ class User extends Authenticatable
         return $this->hasOne(Ticket::class);
     }
 
-    public function event(): HasMany
+    public function events(): HasMany
     {
         return $this->hasMany(Event::class);
     }

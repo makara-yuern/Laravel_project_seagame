@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date("date");
             $table->time("time");
+            $table->string("location");
 
             $table->unsignedBigInteger('event_id');
             $table->foreign('event_id')

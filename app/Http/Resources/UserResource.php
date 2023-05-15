@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'age'=>$this->age,
             'email'=>$this->email,
             'gender'=>$this->gender,
+            // 'events'=>$this->teams
         ];
     }
 }

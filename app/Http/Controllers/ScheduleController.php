@@ -24,6 +24,7 @@ class ScheduleController extends Controller
         $schedule = Schedule::create([
             'date' => $request->input('date'),
             'time' => $request->input('time'),
+            'location' => $request->input('location'),
             'event_id' => $request->input('event_id'),
         ]);
         return response()->json(['success' =>true,'message' =>"create successfully", 'data' => $schedule],200);
@@ -46,7 +47,8 @@ class ScheduleController extends Controller
         $schedule = Schedule::find($id);
         $schedule->update([
             'date' => $request->input('date'),
-            'time' => $request->input('time')
+            'time' => $request->input('time'),
+            'location' => $request->input('location'),
         ]);
         return response()->json(['success' =>true,'message' =>"update successfully", 'data' => $schedule],200);
     }
