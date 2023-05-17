@@ -16,13 +16,22 @@ class Schedule extends Model
         'event_id',
     ];
 
+    public static function store($request, $id = null)
+    {
+        $team = $request->only(['date', 'time','location','event_id']);
+
+        $event = self::updateOrCreate(['id' => $id], $team);
+        
+        return $event;
+    }
+
     public function ticket(): HasOne
     {
         return $this->hasOne(Ticket::class);
     }
 
-    public function events()
+    public function event()
     {
-        return $this->belongsToMany(User::class, 'schedule_events');
+        return $this->belongsTo(Event::class);
     }
 }

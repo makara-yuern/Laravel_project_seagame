@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ScheduleRequest;
+use App\Http\Resources\ScheduleResource;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 
@@ -13,20 +15,16 @@ class ScheduleController extends Controller
     public function index()
     {
         $schedules = Schedule::all();
+        $schedules = ScheduleResource::collection($schedules);
         return response()->json(['success' =>true,'data' => $schedules],200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ScheduleRequest $request)
     {
-        $schedule = Schedule::create([
-            'date' => $request->input('date'),
-            'time' => $request->input('time'),
-            'location' => $request->input('location'),
-            'event_id' => $request->input('event_id'),
-        ]);
+        $schedule = Schedule::store($request);
         return response()->json(['success' =>true,'message' =>"create successfully", 'data' => $schedule],200);
     }
 
@@ -42,14 +40,9 @@ class ScheduleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ScheduleRequest $request, string $id)
     {
-        $schedule = Schedule::find($id);
-        $schedule->update([
-            'date' => $request->input('date'),
-            'time' => $request->input('time'),
-            'location' => $request->input('location'),
-        ]);
+        $schedule = Schedule::store($request);
         return response()->json(['success' =>true,'message' =>"update successfully", 'data' => $schedule],200);
     }
 

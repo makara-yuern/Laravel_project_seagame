@@ -38,7 +38,7 @@ class EventRequest extends FormRequest
             ],
             'description' => [
                 'required',
-                // Rule::unique('events')->ignore($this->id),
+                Rule::unique('events')->ignore($this->id),
             ],
         ];
     }

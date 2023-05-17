@@ -19,7 +19,6 @@ class TicketResource extends JsonResource
             'seat'=>$this->seat,
             'price'=>$this->price,
             'user'=>$this->user ?? null,
-            // 'schedule'=>$this->schedule ?? null
         ];
     }
 }

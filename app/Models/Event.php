@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User;
 
 class Event extends Model
@@ -17,19 +18,11 @@ class Event extends Model
         'user_id',
     ];
 
-    
+    public function ticket(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
 
-    // public function ticket(): HasMany
-    // {
-    //     return $this->hasMany(User::class);
-    // }
-
-    // public function schedule(): BelongsTo
-    // {
-    //     return $this->belongsTo(Schedule::class);
-    // }
-
-   
     public static function store($request, $id = null)
     {
         $team = $request->only(['name', 'description','user_id']);
@@ -42,8 +35,6 @@ class Event extends Model
         return $event;
     }
 
-    
-
     public function teams()
     {
         return $this->belongsToMany(Team::class, 'event_teams');
@@ -52,5 +43,10 @@ class Event extends Model
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function schedule():HasOne
+    {
+        return $this->hasOne(Schedule::class);
     }
 }

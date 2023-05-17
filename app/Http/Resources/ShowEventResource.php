@@ -18,7 +18,6 @@ class ShowEventResource extends JsonResource
             'id' =>$this->id,
             'name' =>$this->name,
             'description' =>$this->description,
-            // 'teams' =>TeamResource::collection($this->teams)
         ];
     }
 }

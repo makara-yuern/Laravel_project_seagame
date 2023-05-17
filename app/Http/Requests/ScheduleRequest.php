@@ -33,6 +33,11 @@ class ScheduleRequest extends FormRequest
         return [
             'date' => 'required',
             'time' => 'required',
+            'location' => 'required',
+            'event_id' => [
+                'required',
+                Rule::unique('schedules')->ignore($this->id),
+            ],
         ];
     }
 }
